@@ -5,7 +5,7 @@ resource "aws_subnet" "eks_subnet_public_1a" {
   cidr_block              = cidrsubnet(var.cidr_block, 8, 1)
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name                     = "${var.project_name}-public-subnet-1a"
       "kubernetes.io/role/elb" = "1"
@@ -20,7 +20,7 @@ resource "aws_subnet" "eks_subnet_public_1b" {
   cidr_block              = cidrsubnet(var.cidr_block, 8, 2)
 
   tags = merge(
-    local.tags,
+    var.tags,
     {
       Name                     = "${var.project_name}-public-subnet-1b"
       "kubernetes.io/role/elb" = "1"
