@@ -1,101 +1,44 @@
 # Terraform-eks
-🚀 Projeto Terraform com Amazon EKS
 
-Este projeto provisiona uma infraestrutura completa no Amazon Elastic Kubernetes Service (EKS) utilizando Terraform como ferramenta de IaC (Infrastructure as Code).
+<!-- BEGIN_TF_DOCS -->
+## Requirements
 
-O objetivo é simplificar a criação e gestão de clusters Kubernetes altamente disponíveis, seguros e escaláveis na AWS.
+| Name | Version |
+|------|---------|
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 6.8.0 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | 3.0.2 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.38.0 |
 
-📋 Funcionalidades
+## Providers
 
-Criação de Cluster EKS gerenciado na AWS
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.8.0 |
 
-Configuração de VPC, subnets públicas/privadas e security groups
+## Modules
 
-Criação de Node Groups (EC2) ou Fargate Profiles para execução de workloads
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_eks_cluster"></a> [eks\_cluster](#module\_eks\_cluster) | ./modules/cluster | n/a |
+| <a name="module_eks_load_balancer_controller"></a> [eks\_load\_balancer\_controller](#module\_eks\_load\_balancer\_controller) | ./modules/aws-load-balancer-controller | n/a |
+| <a name="module_eks_managed_nodew_group"></a> [eks\_managed\_nodew\_group](#module\_eks\_managed\_nodew\_group) | ./modules/managed-nodew-group | n/a |
+| <a name="module_eks_network"></a> [eks\_network](#module\_eks\_network) | ./modules/network | n/a |
 
-Integração com IAM Roles e Policies para permissões seguras
+## Resources
 
-Configuração automática do kubeconfig para acesso ao cluster
+| Name | Type |
+|------|------|
+| [aws_eks_cluster.eks](https://registry.terraform.io/providers/hashicorp/aws/6.8.0/docs/data-sources/eks_cluster) | data source |
+| [aws_eks_cluster_auth.eks](https://registry.terraform.io/providers/hashicorp/aws/6.8.0/docs/data-sources/eks_cluster_auth) | data source |
 
-Possibilidade de integrar Add-ons (CoreDNS, VPC CNI, kube-proxy, etc.)
+## Inputs
 
-🛠️ Pré-requisitos
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | value for the CIDR block of the VPC | `string` | n/a | yes |
+| <a name="input_project_name"></a> [project\_name](#input\_project\_name) | Name of the project, used for tagging resources | `string` | n/a | yes |
 
-Antes de começar, você precisará ter instalado:
+## Outputs
 
-Terraform
- >= 1.5
-
-AWS CLI
- configurada com credenciais válidas
-
-kubectl
- para interagir com o cluster
-
-📂 Estrutura do Projeto
-.
-├── main.tf              # Definição principal do Terraform
-├── variables.tf         # Variáveis de entrada
-├── outputs.tf           # Saídas úteis (ex: kubeconfig)
-├── vpc.tf               # Configuração de rede (VPC, subnets, etc.)
-├── eks.tf               # Criação do cluster EKS
-├── providers.tf         # Configuração do provider AWS
-└── README.md            # Documentação do projeto
-
-⚙️ Como usar
-1. Clone este repositório
-git clone https://github.com/seu-usuario/terraform-eks.git
-cd terraform-eks
-
-2. Inicialize o Terraform
-terraform init
-
-3. Valide os arquivos
-terraform validate
-
-4. Visualize o plano de execução
-terraform plan
-
-5. Aplique a infraestrutura
-terraform apply -auto-approve
-
-6. Configure o kubeconfig para acessar o cluster
-aws eks update-kubeconfig --name nome-do-cluster --region us-east-1
-
-7. Teste o acesso ao cluster
-kubectl get nodes
-
-📤 Saídas
-
-Após a execução, o Terraform retorna informações úteis como:
-
-Nome do cluster EKS
-
-Endpoint do cluster
-
-Role ARN do Node Group
-
-Configuração de kubeconfig
-
-🧹 Destruir recursos
-
-Para evitar custos indesejados, destrua os recursos criados:
-
-terraform destroy -auto-approve
-
-🔒 Segurança
-
-Este projeto utiliza IAM Roles dedicados para EKS e Node Groups
-
-As chaves de acesso não devem ser commitadas
-
-Use o AWS SSO
- ou variáveis de ambiente para autenticação
-
-📖 Referências
-
-Documentação do EKS
-
-Módulo oficial Terraform EKS
-
-Terraform AWS Provider
+No outputs.
+<!-- END_TF_DOCS -->
