@@ -11,4 +11,4 @@ repos:
         - --args=-no-color  
     - id: terraform_docs
       args:
-        - --args=--autput-file README.md
+        - --args=--output-file README.md
